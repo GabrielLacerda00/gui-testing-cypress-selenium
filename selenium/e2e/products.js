@@ -5,7 +5,7 @@ describe('products', () => {
   let driver;
 
   before(async () => {
-    driver = await new Builder().forBrowser('firefox').build();
+    driver = await new Builder().forBrowser('chrome').build();
   });
 
   after(async () => {
@@ -46,85 +46,139 @@ describe('products', () => {
     assert(bodyText.includes('000F_office_grey_jeans-variant-4'));
   });
 
-  it('test case 2', async () => {
-    // Implement your test case 2 code here
-  });
+ //IMPLEMENTE EXERC
+ it('Teste01', async function() {
+    await driver.get("http://localhost:9990/admin/")
+    await driver.manage().window().setRect({ width: 1470, height: 834 })
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.css(".item:nth-child(1) .bulk-select-checkbox")).click()
+    await driver.findElement(By.linkText("Edit")).click()
+    await driver.executeScript("window.scrollTo(0,418)")
+    await driver.findElement(By.css("div:nth-child(2) > .title > .dropdown")).click()
+    await driver.findElement(By.css("div:nth-child(3) > .title > .dropdown")).click()
+    await driver.findElement(By.css("div:nth-child(3) > .title")).click()
+    await driver.findElement(By.css("div:nth-child(1) > .title > .dropdown")).click()
+    await driver.findElement(By.css(".active > .dropdown")).click()
+    await driver.findElement(By.css("div:nth-child(7) > .title > .dropdown")).click()
+    await driver.findElement(By.css(".active > .dropdown")).click()
+    await driver.findElement(By.id("sylius_save_changes_button")).click()
+    assert.equal("Product has been successfully updated.")
+  })
 
-  it('test case 3', async () => {
-    // Implement your test case 3 code here
-  });
+  it('Teste02', async function() {
+    await driver.get("http://localhost:9990/admin/")
+    await driver.manage().window().setRect({ width: 1470, height: 834 })
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.css(".item:nth-child(2) form > .ui > .icon")).click()
+    await driver.findElement(By.css(".cancel")).click()
+    await driver.findElement(By.css(".item:nth-child(3) .ui > .ui:nth-child(2)")).click()
+    await driver.executeScript("window.scrollTo(0,177)")
+    await driver.findElement(By.id("sylius_product_variantSelectionMethod")).click()
+    await driver.findElement(By.css(".segment > .field:nth-child(3)")).click()
+    await driver.findElement(By.css(".field:nth-child(2) > .ui > label")).click()
+    await driver.findElement(By.id("sylius_product_channels")).click()
+    await driver.findElement(By.css(".field:nth-child(1) > .ui > label")).click()
+    await driver.findElement(By.id("sylius_save_changes_button")).click()
+    assert.equal("Product has been successfully updated.")
+  })
 
-  // Implement the remaining test cases in a similar manner
-});
+  it('Update Product03', async function() {
+    await driver.get("http://localhost:9990/admin/")
+    await driver.manage().window().setRect({ width: 1470, height: 834 })
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.css(".item:nth-child(2) .ui > .ui:nth-child(2)")).click()
+    await driver.executeScript("window.scrollTo(0,0)")
+    await driver.findElement(By.linkText("Cancel")).click()
+    await driver.findElement(By.css(".item:nth-child(3) .ui > .ui:nth-child(2)")).click()
+    await driver.findElement(By.css(".field:nth-child(2) > .ui > label")).click()
+    await driver.findElement(By.css(".field:nth-child(1) > .ui > label")).click()
+    await driver.findElement(By.id("sylius_save_changes_button")).click()
+    assert.equal("Product has been successfully updated.")
+  })
 
+  it('TesteCategoryCaps01', async function() {
+    await driver.get("http://localhost:9990/admin/")
+    await driver.manage().window().setRect({ width: 1470, height: 920 })
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.linkText("Simple")).click()
+    await driver.findElement(By.linkText("Edit")).click()
+    await driver.findElement(By.css(".field:nth-child(2) > .ui > label")).click()
+    await driver.findElement(By.id("sylius_save_changes_button")).click()
+    assert.equal("Product has been successfully updated.")
+  })
 
-/// NEW CASES - Gabriel lacerda
-it('product name is correctly displayed', async () => {
-  // Navigate, find and assert product name
-  await driver.findElement(By.css('a[href="/admin/products/"]')).click();
-  const productName = await driver.findElement(By.css('.product-name-class')).getText();
-  assert.strictEqual(productName, 'Expected Product Name');
-});
+  it('TesteCategoryCaps02', async function() {
+    await driver.get("http://localhost:9990/admin/")
+    await driver.manage().window().setRect({ width: 1470, height: 920 })
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.linkText("Simple")).click()
+    await driver.findElement(By.linkText("Edit")).click()
+    await driver.findElement(By.css(".field:nth-child(2) > .ui > label")).click()
+    await driver.findElement(By.id("sylius_save_changes_button")).click()
+    await driver.executeScript("window.scrollTo(0,2123.5)")
+    assert.equal("Product has been successfully updated.")
+  })
 
-it('product image is displayed', async () => {
-  await driver.findElement(By.css('a[href="/admin/products/"]')).click();
-  const productImage = await driver.findElement(By.css('.product-image-class'));
-  assert.ok(productImage);
-});
+  it('TesteCategoryCaps03', async function() {
+    await driver.get("http://localhost:9990/admin/")
+    await driver.manage().window().setRect({ width: 1470, height: 920 })
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.linkText("Simple")).click()
+    await driver.findElement(By.css(".item:nth-child(2) .pencil")).click()
+    await driver.findElement(By.css(".field:nth-child(2) > .ui > label")).click()
+    await driver.findElement(By.id("sylius_save_changes_button")).click()
+    await driver.executeScript("window.scrollTo(0,1881)")
+    assert.equal("Product has been successfully updated.")
+  })
 
-it('editing a product variant', async () => {
-  // Navigate, edit variant, save and then assert the change
-  await driver.findElement(By.css('a[href="/admin/products/"]')).click();
-  await driver.findElement(By.css('.edit-variant-button')).click();
-  await driver.findElement(By.id('variant-detail-input')).clear();
-  await driver.findElement(By.id('variant-detail-input')).sendKeys('New Variant Detail');
-  await driver.findElement(By.css('.save-variant-button')).click();
-  const variantDetail = await driver.findElement(By.id('variant-detail-text')).getText();
-  assert.strictEqual(variantDetail, 'New Variant Detail');
-});
+  it('TesteCategoryCaps04', async function() {
+    await driver.get("http://localhost:9990/admin/")
+    await driver.manage().window().setRect({ width: 1470, height: 920 })
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.linkText("Simple")).click()
+    await driver.findElement(By.css(".item:nth-child(2) .pencil")).click()
+    await driver.findElement(By.css(".field:nth-child(2) > .ui > label")).click()
+    await driver.findElement(By.id("sylius_save_changes_button")).click()
+    assert.equal("Product has been successfully updated.")
+  })
 
-it('deleting a product variant', async () => {
-  // Navigate, delete a variant and assert it no longer exists
-  await driver.findElement(By.css('a[href="/admin/products/"]')).click();
-  await driver.findElement(By.css('.delete-variant-button')).click();
-  const variantExist = await driver.findElements(By.css('.specific-variant-class'));
-  assert.strictEqual(variantExist.length, 0);
-});
+  it('TesteCategoryPompoms01', async function() {
+    await driver.get("http://localhost:9990/admin/")
+    await driver.manage().window().setRect({ width: 1470, height: 920 })
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.linkText("With pompons")).click()
+    await driver.findElement(By.linkText("Edit")).click()
+    await driver.findElement(By.css(".field:nth-child(2) > .ui > label")).click()
+    await driver.findElement(By.id("sylius_save_changes_button")).click()
+    assert.equal("Product has been successfully updated.")
+  })
 
-it('add a new product', async () => {
-  await driver.findElement(By.css('.add-product-button')).click();
-  // Add the product details here
-  await driver.findElement(By.css('.save-product-button')).click();
-  const productName = await driver.findElement(By.css('.newly-added-product-name')).getText();
-  assert.strictEqual(productName, 'New Product Name');
-});
+  it('TesteCategoryPompoms02', async function() {
+    await driver.get("http://localhost:9990/admin/")
+    await driver.manage().window().setRect({ width: 1470, height: 920 })
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.linkText("With pompons")).click()
+    await driver.findElement(By.css(".item:nth-child(1) .pencil")).click()
+    await driver.findElement(By.css(".field:nth-child(2) > .ui > label")).click()
+    await driver.findElement(By.id("sylius_save_changes_button")).click()
+    assert.equal("Product has been successfully updated.")
+  })
 
-it('check pagination functionality', async () => {
-  await driver.findElement(By.css('a[href="/admin/products/"]')).click();
-  const paginationButton = await driver.findElement(By.css('.pagination-button'));
-  assert.ok(paginationButton);
-  await paginationButton.click();
-  const secondPageProduct = await driver.findElement(By.css('.second-page-product'));
-  assert.ok(secondPageProduct);
-});
+  it('UpdateProductCategoryWomen03', async function() {
+    assert.equal("Product has been successfully updated.")
+  })
 
-it('filter products by name', async () => {
-  await driver.findElement(By.css('a[href="/admin/products/"]')).click();
-  await driver.findElement(By.css('.product-filter-input')).sendKeys('Filtered Product Name');
-  await driver.findElement(By.css('.filter-button')).click();
-  const filteredProductName = await driver.findElement(By.css('.filtered-product-name')).getText();
-  assert.strictEqual(filteredProductName, 'Filtered Product Name');
-});
+  it('UpdateProductCategoryWomen02', async function() {
+    await driver.get("http://localhost:9990/admin/")
+    await driver.manage().window().setRect({ width: 1470, height: 834 })
+    await driver.findElement(By.linkText("Products")).click()
+    await driver.findElement(By.linkText("Women")).click()
+    await driver.findElement(By.css(".item:nth-child(2) .pencil")).click()
+    await driver.findElement(By.id("sylius_product_variantSelectionMethod")).click()
+    await driver.findElement(By.css(".field:nth-child(2) > .ui > label")).click()
+    await driver.findElement(By.id("sylius_save_changes_button")).click()
+    assert.equal("Product has been successfully updated.")
+  })
 
-it('check product sorting', async () => {
-  await driver.findElement(By.css('a[href="/admin/products/"]')).click();
-  await driver.findElement(By.css('.sort-button')).click();
-  // Add assertions to check if products are sorted as expected
-});
-
-it('validate product details access', async () => {
-  await driver.findElement(By.css('a[href="/admin/products/"]')).click();
-  await driver.findElement(By.css('.product-detail-button')).click();
-  const productDetail = await driver.findElement(By.css('.product-detail-class')).getText();
-  assert.ok(productDetail);
 });
